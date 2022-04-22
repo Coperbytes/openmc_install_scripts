@@ -1,0 +1,51 @@
+name: build Ubuntu
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning' 
+      print_tags:
+        description: 'True to print to STDOUT'
+        required: true
+        default: true
+      tags:
+        description: 'Test scenario tags'
+        required: true
+        default: true
+  schedule:
+    - cron: '44 4 * * 0'
+jobs:
+  print-tag:
+    runs-on: ubuntu-latest
+    if:  ${{ github.event.inputs.print_tags == 'true' }} 
+    steps:
+      - name: Print the input tag to STDOUT
+        run: echo  The tags are ${{ github.event.inputs.tags }}
+  run-embree-installer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout_main_repo
+        uses: actions/checkout@v3
+        with:
+          repository: 'openmsr/openmc_install_scripts'
+          ref: 'main'
+          path: openmc_install_scripts
+          submodules: true
+      - name: moab-install
+        run: |
+          cd openmc_install_scripts/Ubuntu_20.04
+          ./moab-install.sh
+      - name: double_down-install
+        run: |
+          cd openmc_install_scripts/Ubuntu_20.04
+          ./double_down-install.sh
+      - name: dagmc-install
+        run: |
+          cd openmc_install_scripts/Ubuntu_20.04
+          ./dagmc-install.sh
+      - name: dagmc-install
+        run: |
+          cd openmc_install_scripts/Ubuntu_20.04
+          ./openmc-install.sh

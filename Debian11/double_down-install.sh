@@ -20,7 +20,11 @@ install_prefix="/opt"
 if [ "x" != "x$LOCAL_INSTALL_PREFIX" ]; then
   install_prefix=$LOCAL_INSTALL_PREFIX
 fi
-build_prefix="$HOME/openmc"
+
+
+sudo apt-get install --yes doxygen\
+        libembree3-3 libembree-dev
+
 
 #if there is a .done-file then skip this step
 if [ ! -e ${name}.done ]; then
@@ -40,9 +44,10 @@ if [ ! -e ${name}.done ]; then
   fi
   mkdir -p build
   cd build
-  cmake ../double-down -DMOAB_DIR=${install_prefix}\
-                       -DCMAKE_INSTALL_PREFIX=${install_prefix}
-  make -j $ccores
+  cmake ../double-down -DMOAB_DIR=$HOME/openmc/MOAB \
+                     -DCMAKE_INSTALL_PREFIX=$HOME/openmc/double-down
+  
+  make -j $ccores 
   make install
 
   cd ${WD}

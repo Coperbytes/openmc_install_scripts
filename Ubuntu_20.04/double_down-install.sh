@@ -12,6 +12,12 @@ echo "Compiled & installed embree, proceeding..."
 ./moab-install.sh
 echo "Compiled & installed moab, proceeding..."
 
+if [ "x" == "$1x" ]; then
+	ccores=1
+else
+	ccores=$1
+fi
+
 WD=`pwd`
 name=`basename $0`
 package_name='double_down'

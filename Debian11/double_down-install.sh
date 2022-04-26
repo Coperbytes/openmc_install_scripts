@@ -16,6 +16,11 @@ WD=`pwd`
 name=`basename $0`
 package_name='double_down'
 
+install_prefix="/opt"
+if [ "x" != "x$LOCAL_INSTALL_PREFIX" ]; then
+  install_prefix=$LOCAL_INSTALL_PREFIX
+fi
+
 #if there is a .done-file then skip this step
 if [ ! -e ${name}.done ]; then
   sudo apt-get install --yes doxygen\

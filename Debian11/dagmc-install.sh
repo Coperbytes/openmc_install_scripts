@@ -10,6 +10,7 @@ echo "Compiled & installed double-down, proceeding..."
 
 WD=`pwd`
 name=`basename $0`
+package_name='dagmc'
 
 #if there is a .done-file then skip this step
 if [ ! -e $0.done ]; then
@@ -30,9 +31,9 @@ if [ ! -e $0.done ]; then
                -DCMAKE_INSTALL_PREFIX=$HOME/openmc/DAGMC/ \
                -DDOUBLE_DOWN_DIR=$HOME/openmc/double-down
   make install
-  cd $WD
 
-  touch ${0}.done
+  cd ${WD}
+  touch ${name}.done
 else
   echo DAGMC appears already to be installed \(lock file ${name}.done exists\) - skipping.
 fi

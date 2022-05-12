@@ -1,5 +1,5 @@
 ###############################################################################
-#moab souce install
+#moab source install
 ################################################################################
 #!/bin/bash
 set -ex
@@ -11,6 +11,7 @@ fi
 
 WD=`pwd`
 name=`basename $0`
+package_name='MOAB'
 
 #if there is a .done-file then skip this step
 if [ ! -e ${name}.done ]; then

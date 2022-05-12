@@ -43,8 +43,7 @@ if [ ! -e ${name}.done ]; then
   make -j $ccores
   make install
 
-  cd $WD
-
+  cd ${WD}
   touch ${name}.done
 else
   echo double-down appears to be already installed \(lock file ${name}.done exists\) - skipping.

@@ -9,16 +9,11 @@ name=`basename $0`
 package_name='MOAB'
 
 install_prefix="/opt"
-if [ "x" != "x$LOCAL_INSTALL_PREFIX" ]; then
-  install_prefix=$LOCAL_INSTALL_PREFIX
-fi
-
-echo will install to $LOCAL_INSTALL_PREFIX
 
 #check if there is a .done file indicating that we have already built this target
 if [ ! -e ${name}.done ]; then
-  if ! pacman -Qi eigen netcdf hdf5-openmpi python-setuptools cython; then
-    sudo pacman -Sy --noconfirm \
+
+  sudo pacman -Syu --noconfirm \
 	eigen \
 	netcdf \
 	hdf5 \
@@ -42,14 +37,14 @@ if [ ! -e ${name}.done ]; then
               -DENABLE_FORTRAN=OFF \
               -DBUILD_SHARED_LIBS=ON \
               -DENABLE_BLASLAPACK=OFF \
-              -DCMAKE_INSTALL_PREFIX=${install_prefix}
+              -DCMAKE_INSTALL_PREFIX=${install_prefix}/MOAB
   make -j ${ccores}
-  make install
+  sudo make install
 
   #to install the python API
   cd pymoab
-  bash install.sh
-  python setup.py install
+  sudo bash install.sh
+  sudo python setup.py install
 
   cd ${WD}
   touch ${name}.done

@@ -31,9 +31,9 @@ if [ ! -e $0.done ]; then
                -DCMAKE_INSTALL_PREFIX=$HOME/openmc/DAGMC/ \
                -DDOUBLE_DOWN_DIR=$HOME/openmc/double-down
   make install
+  cd $WD
 
-  cd ${WD}
-  touch ${name}.done
+  touch ${0}.done
 else
   echo DAGMC appears already to be installed \(lock file ${name}.done exists\) - skipping.
 fi

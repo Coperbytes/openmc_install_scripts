@@ -14,17 +14,6 @@ echo "Compiled & installed moab, proceeding..."
 
 WD=`pwd`
 name=`basename $0`
-package_name='double_down'
-
-install_prefix="/opt"
-if [ "x" != "x$LOCAL_INSTALL_PREFIX" ]; then
-  install_prefix=$LOCAL_INSTALL_PREFIX
-fi
-
-
-sudo apt-get install --yes doxygen\
-        libembree3-3 libembree-dev
-
 
 #if there is a .done-file then skip this step
 if [ ! -e ${name}.done ]; then
@@ -37,20 +26,22 @@ if [ ! -e ${name}.done ]; then
 	ccores=$1
   fi
 
-  mkdir -p $HOME/openmc/double-down
-  cd $HOME/openmc/double-down
-  if [ ! -d double-down ]; then
-	  git clone --single-branch --branch develop --depth 1 https://github.com/pshriwise/double-down.git
-  fi
-  mkdir -p build
+  cd $HOME
+  mkdir -p openmc
+  cd openmc
+  mkdir -p double-down
+  cd double-down
+  git clone --single-branch --branch main --depth 1 https://github.com/pshriwise/double-down.git
+  mkdir build
   cd build
   cmake ../double-down -DMOAB_DIR=$HOME/openmc/MOAB \
                      -DCMAKE_INSTALL_PREFIX=$HOME/openmc/double-down
-  
-  make -j $ccores 
+
+  make -j $ccores
   make install
 
-  cd ${WD}
+  cd $WD
+
   touch ${name}.done
 else
   echo double-down appears to be already installed \(lock file ${name}.done exists\) - skipping.

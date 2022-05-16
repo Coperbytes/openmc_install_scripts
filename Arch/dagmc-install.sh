@@ -47,6 +47,7 @@ if [ ! -e ${name}.done ]; then
                -DCMAKE_BUILD_TYPE=Debug\
                -DCMAKE_INSTALL_PREFIX=${install_prefix}\
                -DDOUBLE_DOWN_DIR=${install_prefix}
+               -DCMAKE_BUILD_TYPE=Debug\
   make -j $ccores
   make install
 

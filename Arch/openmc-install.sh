@@ -84,9 +84,9 @@ if [ ! -e ${name}.done ]; then
   cmake -DOPENMC_USE_DAGMC=ON\
         -DOPENMC_USE_OPENMP=OFF\
         -DOPENMC_USE_MPI=off\
-        -DDAGMC_ROOT=${install_prefix}\
         -DHDF5_PREFER_PARALLEL=off\
-        -DCMAKE_INSTALL_PREFIX=${install_prefix} ..
+	-DCMAKE_INSTALL_PREFIX=${install_prefix}\
+        -DCMAKE_BUILD_TYPE=Debug ..
   make -j $ccores
   make install
 

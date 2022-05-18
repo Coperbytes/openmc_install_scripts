@@ -86,6 +86,7 @@ if [ ! -e ${name}.done ]; then
   fi
   mkdir -p build
   cd build
+<<<<<<< HEAD
   cmake -DOPENMC_USE_DAGMC=ON\
         -DDAGMC_ROOT=${install_prefix}\
         -DOPENMC_USE_OPENMP=OFF\
@@ -101,6 +102,11 @@ if [ ! -e ${name}.done ]; then
   pip install ..
 =======
 	      -DCMAKE_INSTALL_PREFIX=${install_prefix} ..
+=======
+  cmake -DOPENMC_USE_DAGMC=ON \
+        -DDAGMC_ROOT=${install_prefix} \
+        -DHDF5_PREFER_PARALLEL=off ..
+>>>>>>> 727ac8a (turn off parallelism and double-down for easier debugging)
   make -j $ccores
   sudo make install
   cd ..

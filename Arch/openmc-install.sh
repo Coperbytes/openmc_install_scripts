@@ -60,7 +60,6 @@ if [ ! -e ${name}.done ]; then
         -DOPENMC_USE_MPI=off\
         -DDAGMC_ROOT=${install_prefix}\
         -DHDF5_PREFER_PARALLEL=off\
-	-DCMAKE_BUILD_TYPE=Debug\
 	-DCMAKE_INSTALL_PREFIX=${install_prefix} ..
   make -j $ccores
   make install

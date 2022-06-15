@@ -40,10 +40,9 @@ if [ ! -e ${name}.done ]; then
   mkdir -p build
   cd build
   cmake ../double-down -DMOAB_DIR=${install_prefix}\
-  sudo cmake ../double-down -DMOAB_DIR=${install_prefix}\
                        -DCMAKE_BUILD_TYPE=Debug\
                        -DCMAKE_INSTALL_PREFIX=${install_prefix}
-  sudo make -j ${ccores}
+  make -j ${ccores}
   sudo make install
 
   #touch a lock file to avoid uneccessary rebuilds

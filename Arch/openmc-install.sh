@@ -91,6 +91,7 @@ if [ ! -e ${name}.done ]; then
         -DOPENMC_USE_OPENMP=OFF\
         -DOPENMC_USE_MPI=off\
         -DHDF5_PREFER_PARALLEL=off\
+<<<<<<< HEAD
         -DCMAKE_INSTALL_PREFIX=${install_prefix}\
         -DCMAKE_BUILD_TYPE=Debug ..
   make -j $ccores
@@ -98,6 +99,18 @@ if [ ! -e ${name}.done ]; then
 
   #install the python layer
   pip install ..
+=======
+	      -DCMAKE_INSTALL_PREFIX=${install_prefix} ..
+  make -j $ccores
+  sudo make install
+  cd ..
+  sudo python setup.py install
+  #set up a python venv and install the python api (and deps) into that
+  cd ${HOME}
+  python -m venv openmc_env
+  openmc_env/bin/python -m pip install --upgrade pip
+  sudo openmc_env/bin/python -m pip install $HOME/openmc/openmc
+>>>>>>> 36262a3 (arch updates)
 
   cd ${WD}
 

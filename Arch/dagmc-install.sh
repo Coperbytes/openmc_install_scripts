@@ -53,5 +53,6 @@ if [ ! -e ${name}.done ]; then
   cd ${WD}
   touch ${name}.done
 else
-  echo DAGMC appears already to be installed \(lock file ${name}.done exists\) - skipping.
+  echo DAGMC appears already to be installed \(lock file ${name}.done exists\) \
+        - skipping.
 fi

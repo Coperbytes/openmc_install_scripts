@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-echo 'Defaults    timestamp_timeout=-1' | sudo EDITOR='tee -a' visudo
+#echo 'Defaults    timestamp_timeout=-1' | sudo EDITOR='tee -a' visudo
 
 #default install location. may be overrridden by the option --prefix=<path>
 LOCAL_INSTALL_PREFIX=/usr/local/lib
@@ -22,12 +22,17 @@ export LOCAL_INSTALL_PREFIX
 ./openmc-install.sh
 echo "Compiled & installed openmc, done."
 
+bash cad-to-openmc-install.sh
+echo "Compiled & installed CAD_to_openMC, done."
+
 #remove timestamp update
 sudo sed -i '/Defaults    timestamp_timeout=-1/d' /etc/sudoers
 
-echo "Running test script..."
-python test_openmc.py
+echo "Running test scripts..."
+python ./tests/step_to_h5m.py
+python ./tests/test_openmc.py
 rm *.xml
 rm *.h5
-
-
+rm *.stl
+rm *.h5m
+rm *.vtk

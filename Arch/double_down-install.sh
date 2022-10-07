@@ -43,7 +43,7 @@ if [ ! -e ${name}.done ]; then
                        -DCMAKE_BUILD_TYPE=Debug\
                        -DCMAKE_INSTALL_PREFIX=${install_prefix}
   make -j ${ccores}
-  sudo make install
+  make install
 
   #touch a lock file to avoid uneccessary rebuilds
   cd $WD

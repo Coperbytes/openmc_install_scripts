@@ -7,6 +7,10 @@ set -ex
 #nuclear_data_download
 #./nuclear_data-install.sh
 #echo "Downloaded & extracted nuclear data, proceeding..."
+<<<<<<< HEAD
+=======
+  
+>>>>>>> e2d0d70 (update to reflect Arch)
 
 openmc_version="v0.13.2"
 if [ "x" != "x$OPENMC_VERSION" ]; then

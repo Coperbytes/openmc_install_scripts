@@ -7,7 +7,6 @@ set -ex
 #nuclear_data_download
 #./nuclear_data-install.sh
 #echo "Downloaded & extracted nuclear data, proceeding..."
-  
 
 openmc_version="v0.13.2"
 if [ "x" != "x$OPENMC_VERSION" ]; then
@@ -19,15 +18,8 @@ fi
 ./dagmc-install.sh
 echo "Compiled & installed dagmc, proceeding..."
 
-if [ "x" == "$1x" ]; then
-	ccores=1
-else
-	ccores=$1
-fi
-
 WD=`pwd`
 name=`basename $0`
-
 install_prefix="/usr/local/lib"
 if [ "x" != "x$LOCAL_INSTALL_PREFIX" ]; then
   install_prefix=$LOCAL_INSTALL_PREFIX
@@ -43,7 +35,6 @@ echo will build openmc from $build_prefix
 
 #if there is a .done-file then skip this step
 if [ ! -e ${name}.done ]; then
-
   sudo apt-get install --yes libpng-dev libpng++-dev\
 	imagemagick\
 	python3-lxml\
@@ -51,8 +42,13 @@ if [ ! -e ${name}.done ]; then
         python3-pandas\
         python3-h5py\
         python3-matplotlib\
-        python3-uncertainties 
+        python3-uncertainties
 
+  #Should we run make in parallel? Default is to use all available cores
+  ccores=`cat /proc/cpuinfo |grep CPU|wc -l`
+  if [ "x$1" != "x" ]; then
+	ccores=$1
+  fi
 
   #Should --openmc_build be passed as argument, it assumes a git version is already checked-out
   if [ -e $build_prefix/openmc ]; then
@@ -84,16 +80,21 @@ if [ ! -e ${name}.done ]; then
   fi
   mkdir -p build
   cd build
-  cmake -DOPENMC_USE_DAGMC=ON \
-        -DDAGMC_ROOT=$HOME/openmc/DAGMC \
-        -DHDF5_PREFER_PARALLEL=off ..
-  sudo make install
-  cd ..
-  sudo pip3 install .
+  cmake -DOPENMC_USE_DAGMC=ON\
+        -DOPENMC_USE_OPENMP=ON\
+        -DOPENMC_USE_MPI=OFF\
+        -DDAGMC_ROOT=${install_prefix}\
+        -DHDF5_PREFER_PARALLEL=off\
+	-DCMAKE_INSTALL_PREFIX=${install_prefix} ..
+  make -j $ccores
+  make install
 
-  cd $WD
+  #install the python layer
+  pip install ..
 
-  #this was apparently successful - mark as done. 
+  cd ${WD}
+
+  #this was apparently successful - mark as done.
   touch ${name}.done
 else
   echo openmc appears to be already installed \(lock file ${name}.done exists\) - skipping.

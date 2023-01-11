@@ -2,6 +2,7 @@
 # set -ex
 
 #echo 'Defaults    timestamp_timeout=-1' | sudo EDITOR='tee -a' visudo
+
 #default install location. may be overrridden by the option --prefix=<path>
 LOCAL_INSTALL_PREFIX=/usr/local/lib
 

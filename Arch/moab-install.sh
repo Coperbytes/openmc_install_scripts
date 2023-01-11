@@ -13,7 +13,7 @@ install_prefix="/opt"
 #check if there is a .done file indicating that we have already built this target
 if [ ! -e ${name}.done ]; then
 
-  sudo pacman -Syu --noconfirm \
+  sudo pacman -Sy --noconfirm \
 	eigen \
 	netcdf \
 	hdf5 \
@@ -39,12 +39,12 @@ if [ ! -e ${name}.done ]; then
               -DENABLE_BLASLAPACK=OFF \
               -DCMAKE_INSTALL_PREFIX=${install_prefix}/MOAB
   make -j ${ccores}
-  sudo make install
+  make install
 
   #to install the python API
   cd pymoab
-  sudo bash install.sh
-  sudo python setup.py install
+  bash install.sh
+  python setup.py install
 
   cd ${WD}
   touch ${name}.done

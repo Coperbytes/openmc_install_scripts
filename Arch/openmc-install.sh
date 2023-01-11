@@ -33,8 +33,6 @@ fi
 echo will install openmc to $install_prefix
 echo will build openmc from $build_prefix
 
-echo will install openmc to $install_prefix
-
 #if there is a .done-file then skip this step
 if [ ! -e ${name}.done ]; then
   if ! pacman -Qi python-pandas python-h5py-openmpi python-matplotlib python-uncertainties > /dev/null; then
@@ -86,7 +84,7 @@ if [ ! -e ${name}.done ]; then
         -DOPENMC_USE_OPENMP=OFF\
         -DOPENMC_USE_MPI=off\
         -DHDF5_PREFER_PARALLEL=off\
-	-DCMAKE_INSTALL_PREFIX=${install_prefix}\
+        -DCMAKE_INSTALL_PREFIX=${install_prefix}\
         -DCMAKE_BUILD_TYPE=Debug ..
   make -j $ccores
   make install

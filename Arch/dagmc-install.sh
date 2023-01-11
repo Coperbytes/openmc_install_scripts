@@ -12,7 +12,7 @@ WD=`pwd`
 name=`basename $0`
 package_name='dagmc'
 
-install_prefix="/usr/local"
+install_prefix="/opt"
 if [ "x" != "x$LOCAL_INSTALL_PREFIX" ]; then
   install_prefix=$LOCAL_INSTALL_PREFIX
 fi
@@ -44,16 +44,13 @@ if [ ! -e ${name}.done ]; then
                -DDOUBLE_DOWN=ON\
                -DBUILD_STATIC_EXE=OFF\
                -DBUILD_STATIC_LIBS=OFF\
-               -DCMAKE_BUILD_TYPE=Debug\
                -DCMAKE_INSTALL_PREFIX=${install_prefix}\
-               -DDOUBLE_DOWN_DIR=${install_prefix}\
-               -DCMAKE_BUILD_TYPE=Debug
+               -DDOUBLE_DOWN_DIR=${install_prefix}
   make -j $ccores
   make install
 
   cd ${WD}
   touch ${name}.done
 else
-  echo DAGMC appears already to be installed \(lock file ${name}.done exists\) \
-        - skipping.
+  echo DAGMC appears already to be installed \(lock file ${name}.done exists\) - skipping.
 fi

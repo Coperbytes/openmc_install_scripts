@@ -5,8 +5,8 @@
 set -ex
 
 #embree compile & install
-./embree-install.sh
-echo "Compiled & installed embree, proceeding..."
+#./embree-install.sh
+#echo "Compiled & installed embree, proceeding..."
 
 #moab compile & install
 ./moab-install.sh
@@ -38,10 +38,18 @@ if [ ! -e ${name}.done ]; then
   if [ ! -d double-down ]; then
 	  git clone --single-branch --branch array_incl --depth 1 https://github.com/pshriwise/double-down.git
   fi
+  #trick to help cmake find embree for older Ubuntus 
+  cd double-down
+  cp ${WD}/../patches/Findembree.cmake cmake/
+  patch -p1 < ${WD}/../patches/double_down_002_embree_on_older.patch
+  cd ..
   mkdir -p build
   cd build
+  
+
   cmake ../double-down -DMOAB_DIR=${install_prefix} \
                        -DCMAKE_INSTALL_PREFIX=${install_prefix} \
+                       -DCMAKE_VERBOSE_MAKEFILE=TRUE \
                        -DCMAKE_BUILD_TYPE=Debug
   make -j ${ccores}
   make install

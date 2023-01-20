@@ -32,7 +32,7 @@ if [ ! -e ${name}.done ]; then
   mkdir -p $HOME/openmc/DAGMC
   cd $HOME/openmc/DAGMC
   if [ ! -e DAGMC ]; then
-    git clone --single-branch --branch develop --depth 1 https://github.com/svalinn/DAGMC.git
+    git clone https://github.com/svalinn/DAGMC.git
   else
     cd DAGMC; git pull; cd ..
   fi
@@ -46,6 +46,7 @@ if [ ! -e ${name}.done ]; then
                -DBUILD_STATIC_LIBS=OFF\
                -DCMAKE_INSTALL_PREFIX=${install_prefix}\
                -DCMAKE_BUILD_TYPE=Debug\
+               -DCMAKE_VERBOSE_MAKEFILE=TRUE\
                -DDOUBLE_DOWN_DIR=${install_prefix}
   make -j $ccores
   make install

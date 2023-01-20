@@ -55,9 +55,9 @@ if [ ! -e ${name}.done ]; then
     cd $build_prefix/openmc
   else
     #source install
-  	mkdir -p $HOME/openmc
-  	cd $HOME/openmc
-  	if [ -e openmc ]; then
+    mkdir -p $HOME/openmc
+    cd $HOME/openmc
+    if [ -e openmc ]; then
       #repo exists checkout the given version and get new updates
       #(updates are of course only relevant for development branches.)
       cd openmc
@@ -71,7 +71,7 @@ if [ ! -e ${name}.done ]; then
       git clone --recurse-submodules https://github.com/openmc-dev/openmc.git
       cd openmc
       git checkout $openmc_version
-  	fi
+    fi
   fi
 
   if [ -e build ]; then
@@ -86,6 +86,7 @@ if [ ! -e ${name}.done ]; then
         -DOPENMC_USE_MPI=off\
         -DHDF5_PREFER_PARALLEL=off\
         -DCMAKE_INSTALL_PREFIX=${install_prefix}\
+        -DCMAKE_VERBOSE_MAKEFILE=TRUE\
         -DCMAKE_BUILD_TYPE=Debug ..
   make -j $ccores
   make install

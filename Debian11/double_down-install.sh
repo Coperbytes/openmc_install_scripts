@@ -36,16 +36,19 @@ if [ ! -e ${name}.done ]; then
   mkdir -p $HOME/openmc/double-down
   cd $HOME/openmc/double-down
   if [ ! -d double-down ]; then
-	  git clone --single-branch --branch develop --depth 1 https://github.com/pshriwise/double-down.git
+	  git clone --single-branch --branch array_incl --depth 1 https://github.com/pshriwise/double-down.git
   fi
   mkdir -p build
   cd build
-  cmake ../double-down -DMOAB_DIR=${install_prefix}\
-                       -DCMAKE_INSTALL_PREFIX=${install_prefix}
-  make -j $ccores
+  cmake ../double-down -DMOAB_DIR=${install_prefix} \
+                       -DCMAKE_INSTALL_PREFIX=${install_prefix} \
+                       -DCMAKE_VERBOSE_MAKEFILE=TRUE \
+                       -DCMAKE_BUILD_TYPE=Debug
+  make -j ${ccores}
   make install
 
-  cd ${WD}
+  #touch a lock file to avoid uneccessary rebuilds
+  cd $WD
   touch ${name}.done
 else
   echo double-down appears to be already installed \(lock file ${name}.done exists\) - skipping.

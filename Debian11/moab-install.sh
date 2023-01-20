@@ -1,5 +1,5 @@
 ###############################################################################
-#moab souce install
+#moab source install
 ################################################################################
 #!/bin/bash
 set -ex
@@ -24,9 +24,7 @@ if [ ! -e ${name}.done ]; then
 	build-essential\
 	libeigen3-dev \
         libnetcdf-dev \
-	libnetcdf18\
-        libnetcdf-mpi-dev\
-	libnetcdf-mpi-18\
+	libnetcdf15\
 	python3-netcdf4 \
         libhdf5-103 \
         libhdf5-cpp-103 \

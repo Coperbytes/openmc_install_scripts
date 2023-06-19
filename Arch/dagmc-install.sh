@@ -51,8 +51,8 @@ if [ ! -e ${name}.done ]; then
                -DMOAB_DIR=${install_prefix}\
                -DDOUBLE_DOWN=ON\
                -DBUILD_STATIC_EXE=OFF\
-               -DBUILD_SHARED_LIBS=OFF\
-               -DBUILD_STATIC_LIBS=ON\
+               -DBUILD_SHARED_LIBS=ON\
+               -DBUILD_STATIC_LIBS=OFF\
                -DCMAKE_INSTALL_PREFIX=${install_prefix}\
                -DDOUBLE_DOWN_DIR=${install_prefix}\
                -DCMAKE_BUILD_TYPE=Debug

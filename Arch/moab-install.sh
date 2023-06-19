@@ -43,7 +43,6 @@ if [ ! -e ${name}.done ]; then
   mkdir -p build
   cd build
   cmake ../moab -DENABLE_HDF5=ON \
-<<<<<<< HEAD
               -DENABLE_NETCDF=ON \
 	      -DENABLE_PYMOAB=ON \
               -DENABLE_FORTRAN=OFF \
@@ -51,14 +50,6 @@ if [ ! -e ${name}.done ]; then
               -DENABLE_BLASLAPACK=OFF \
               -DCMAKE_BUILD_TYPE=Debug \
               -DCMAKE_INSTALL_PREFIX=${install_prefix}
-=======
-	              -DENABLE_PYMOAB=ON \
-                -DENABLE_FORTRAN=OFF \
-                -DBUILD_SHARED_LIBS=ON \
-                -DENABLE_BLASLAPACK=OFF \
-                -DENABLE_NETCDF=ON \
-                -DCMAKE_INSTALL_PREFIX=${install_prefix}/MOAB
->>>>>>> 36262a3 (arch updates)
   make -j ${ccores}
   make install
 
